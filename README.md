@@ -1,6 +1,6 @@
-# Loca-Chat
+# LocaSite
 M2 MIAGE : Projet WEBSERVICE Hauterville et Barvaut
-Application liant Géolocalisation et Communication
+Application liant Géolocalisation et Communication API REST
 
 API de localisation https://www.openstreetmap.org/ 
 
