@@ -1,16 +1,51 @@
-/* App.css */
-body, html, #root, .App {
-  height: 100%;
-  margin: 0;
+/* Positionnement du bouton en bas à droite */
+.initialization-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,.3);
 }
 
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.initialization-btn:hover {
+  background-color: #0056b3;
 }
 
-.leaflet-container {
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+/* Styles pour le formulaire dans le Popup */
+.form-popup {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-popup input[type="text"],
+.form-popup textarea {
+  width: calc(100% - 10px); /* Ajustement pour padding */
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-popup button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  display: block; /* Pour s'assurer que le bouton ne soit pas à côté des champs de texte */
+  margin-top: 10px;
+}
+
+.form-popup button:hover {
+  background-color: #218838;
 }
