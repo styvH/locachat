@@ -3,94 +3,44 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body, html {
-  height: 100%;
   font-family: 'Arial', sans-serif;
 }
 
-/* Barre de navigation avec un style épuré et moderne */
+/* Styles pour la barre de navigation */
 .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #faf8f8; /* Couleur de fond sombre pour la barre de navigation */
-  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,.1);
-  z-index: 1001;
+  background-color: #333;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-/* Logo ou titre de l'application avec un style de police amélioré */
 .navbar .logo {
-  font-size: 1.5em;
-  color: #0e0e0e;
+  color: #fff;
+  font-size: 1.5rem;
   font-weight: bold;
-  text-shadow: 0px 1px 2px rgba(0,0,0,.3);
-}
-
-/* Liens de la barre de navigation avec une apparence de bouton */
-.navbar a {
   text-decoration: none;
+}
+
+.navbar a {
   color: #fff;
-  background-color: #007bff;
-  padding: 8px 15px;
-  margin-left: 20px;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,.3);
-}
-
-/* Animation subtile pour le survol des boutons */
-.navbar a:hover {
-  background-color: #0056b3;
-  box-shadow: 0 4px 8px rgba(0,0,0,.5);
-}
-
-/* Contenu principal avec padding pour éviter la superposition avec la navbar */
-.App {
-  padding-top: 60px;
-}
-
-/* Styles pour les formulaires popup */
-.form-popup {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,.2);
-}
-
-.form-popup input[type="text"],
-.form-popup textarea {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
-}
-
-.form-popup button {
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,.3);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-.form-popup button:hover {
-  background-color: #218838;
-  box-shadow: 0 4px 8px rgba(0,0,0,.5);
+.navbar a:hover {
+  background-color: #007bff;
 }
 
-/* Ajoutez ici d'autres styles personnalisés pour les composants MapComponent, etc. */
+/* Padding top pour le contenu pour ne pas être caché derrière la navbar fixe */
+.App {
+  padding-top: 50px;
+}
+
+/* Styles spécifiques pour le contenu ici si nécessaire */

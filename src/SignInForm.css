@@ -1,0 +1,74 @@
+/* Styles spécifiques pour le formulaire de connexion */
+.signin-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f0f2f5;
+  }
+  
+  .signin-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  
+  .signin-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px; /* Espace supplémentaire sous le titre */
+  }
+  
+  .signin-form .form-control {
+    margin-bottom: 20px;
+  }
+  
+  .signin-form .form-control label {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .signin-form .form-control input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+  }
+  
+  .signin-form .submit-btn {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .signin-form .submit-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .signin-form .form-footer {
+    text-align: center;
+    margin-top: 30px; /* Espace supplémentaire au-dessus des liens */
+  }
+  
+  .signin-form .form-footer a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 10px 15px; /* Espace autour des liens */
+  }
+  
+  .signin-form .form-footer a:hover {
+    text-decoration: underline;
+  }
+  
