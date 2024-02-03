@@ -3,14 +3,17 @@ import './App.css';
 import MapComponent from './MapComponent';
 
 function App() {
-  const initializeData = () => {
-    console.log('Initialisation des données...');
-    // Ajoutez ici votre logique pour initialiser les données, comme une requête API
-  };
-
   return (
     <div className="App">
-      <button className="initialization-btn" onClick={initializeData}>Initialiser les Données</button>
+      {/* Barre de navigation en haut */}
+      <div className="navbar">
+  <div className="logo">Locasite </div>
+  <div>
+    <a href="/signin" className="sign-in-btn">Connexion</a>
+    <a href="/signup" className="sign-up-btn">Inscription</a>
+  </div>
+</div>
+
       <MapComponent />
     </div>
   );
