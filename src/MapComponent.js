@@ -27,7 +27,10 @@ const MapComponent = () => {
 
     fetchPositions();
   }, []);
-
+/** @todo => Ajouter barre de recherche avec liste déroulante sur le côté
+ * Affichant la liste des lieux existants 
+ * Utilise positions.map(site, index) => (...) ajoutes-y site.nomDuJardin (évoluera plus tard)
+ */
   return (
     <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "100vh", width: "100vw" }}>
       <TileLayer
