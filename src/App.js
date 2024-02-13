@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import MapComponent from './MapComponent';
 import SignupForm from './SignupForm';
-import SignInForm from './SignInForm'; // Importez le nouveau composant
+import SignInForm from './SignInForm'; 
+import Dashboard from './Dashboard';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/signin" element={<SignInForm />} />
           <Route path="/" element={<MapComponent />} />
-          <Route path="/dashboard" element={<SignInForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </Router>
