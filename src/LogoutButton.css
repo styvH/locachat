@@ -1,0 +1,14 @@
+.logout-button {
+    color: red; /* Couleur du texte initiale */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur */
+  }
+  
+  .logout-button:hover {
+    background-color: grey; /* Couleur de fond au survol */
+    color: red; /* Couleur du texte au survol */
+    font-weight: bold;
+  }
+  

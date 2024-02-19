@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SignupForm.css';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function SignupForm() {
   const [successMessage, setSuccessMessage] = useState('');
@@ -12,6 +13,15 @@ function SignupForm() {
     password: '',
     confirmPassword: '',
   });
+
+  // Vérifier si l'utilisateur est déjà connecté
+  useEffect(() => {
+    const userId = Cookies.get('userId');
+    // Si l'ID utilisateur existe dans les cookies, rediriger vers le tableau de bord
+    if (userId) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

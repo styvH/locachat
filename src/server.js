@@ -92,7 +92,19 @@ app.post('/api/signin', (req, res) => {
         const match = await bcrypt.compare(password, user.password);
         if (match) {
           // Le mot de passe correspond
-          res.status(200).send('User logged in successfully');
+          // Préparer les données de l'utilisateur à envoyer, exclure le mot de passe
+          const userData = {
+            id: user.id,
+            mail: user.mail,
+            pseudo: user.pseudo, // Supposons que l'utilisateur a un pseudo
+            access_right: user.access_right // Supposons que l'utilisateur a des droits d'accès définis
+          };
+
+          // Envoyer les données de l'utilisateur en réponse
+          res.status(200).json({
+            message: 'User logged in successfully',
+            user: userData
+          });
         } else {
           // Le mot de passe ne correspond pas
           res.status(401).send('Incorrect email or password');

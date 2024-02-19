@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SignInForm.css';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 
 function SignInForm() {
   const [successMessage, setSuccessMessage] = useState('');
@@ -12,6 +12,15 @@ function SignInForm() {
     password: '',
   });
 
+    // Vérifier si l'utilisateur est déjà connecté
+    useEffect(() => {
+      const userId = Cookies.get('userId');
+      // Si l'ID utilisateur existe dans les cookies, rediriger vers le tableau de bord
+      if (userId) {
+        navigate('/dashboard');
+      }
+    }, [navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -19,7 +28,7 @@ function SignInForm() {
       [name]: value,
     }));
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch('http://localhost:3001/api/signin', {
@@ -32,36 +41,28 @@ function SignInForm() {
         password: formData.password,
       }),
     })
-      .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          
-          if (response.status === 200) { // Connexion réussie
-            console.log("Utilisateur créé avec succès");
+      .then((response) => response.json()) // Convertit la réponse en JSON
+      .then((data) => {
+        if (data.message === 'User logged in successfully') {
+          // Stocker les données utilisateur dans des cookies
+          Cookies.set('userId', data.user.id, { expires: 1 });
+          Cookies.set('userMail', data.user.mail, { expires: 1 });
+          Cookies.set('userPseudo', data.user.pseudo, { expires: 1 });
+          Cookies.set('userAccessRight', data.user.access_right, { expires: 1 });
   
-            setSuccessMessage('Connexion réussie...');
-            setTimeout(() => {
-              setSuccessMessage('');
-              navigate('/');
-            }, 3000); // Redirection après 3 secondes
-  
-            return null;
-          } else {
-            throw new Error("Email ou Mot de passe incorrect.");
-          }
-
-
+          setSuccessMessage('Connexion réussie...');
+          setTimeout(() => {
+            setSuccessMessage('');
+            navigate('/');
+            window.location.reload();
+          }, 3000); // Redirection après 3 secondes
         } else {
-          throw new Error('Echec de connexion');
+          throw new Error(data.message || "Erreur lors de la connexion");
         }
       })
       .catch((error) => {
         console.error('Erreur:', error);
-        if (error.message === 'Failed to fetch') {
-          setErrorMessage('Échec de la connexion au serveur. \n Vérifiez votre connexion ou rééssayez plus tard.');
-        } else {
-          setErrorMessage(error.message);
-        }
+        setErrorMessage(error.message || 'Une erreur est survenue lors de la connexion.');
       });
   };
 
