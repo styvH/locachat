@@ -18,7 +18,7 @@ const MapComponent = () => {
   useEffect(() => {
     const fetchPositions = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/positions');
+        const response = await axios.get('http://localhost:3001/api/positions');
         setPositions(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des positions:', error);
