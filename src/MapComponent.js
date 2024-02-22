@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useState, useEffect, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet';
@@ -14,12 +14,17 @@ L.Icon.Default.mergeOptions({
 
 const MapComponent = () => {
   const [positions, setPositions] = useState([]);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     const fetchPositions = async () => {
       try {
         const response = await axios.get('http://localhost:3001/api/positions');
         setPositions(response.data);
+        // Centrer la carte au milieu après le chargement des positions
+        if (mapRef.current) {
+          mapRef.current.flyTo([16.265, -61.551], 10);
+        }
       } catch (error) {
         console.error('Erreur lors de la récupération des positions:', error);
       }
@@ -27,16 +32,14 @@ const MapComponent = () => {
 
     fetchPositions();
   }, []);
-/** @todo => Ajouter barre de recherche avec liste déroulante sur le côté
- * Affichant la liste des lieux existants 
- * Utilise positions.map(site, index) => (...) ajoutes-y site.nomDuJardin (évoluera plus tard)
- */
+
   return (
-    <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "100vh", width: "100vw" }}>
+    <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "100vh", width: "100vw", position: "fixed", top: 0, left: 0 }} zoomControl={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <ZoomControl position="bottomright" />
       {positions.map((site, index) => (
         <Marker key={index} position={site.position}>
           <Popup>
