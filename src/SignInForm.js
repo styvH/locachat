@@ -12,14 +12,12 @@ function SignInForm() {
     password: '',
   });
 
-    // Vérifier si l'utilisateur est déjà connecté
-    useEffect(() => {
-      const userId = Cookies.get('userId');
-      // Si l'ID utilisateur existe dans les cookies, rediriger vers le tableau de bord
-      if (userId) {
-        navigate('/dashboard');
-      }
-    }, [navigate]);
+  useEffect(() => {
+    const userId = Cookies.get('userId');
+    if (userId) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,10 +39,9 @@ function SignInForm() {
         password: formData.password,
       }),
     })
-      .then((response) => response.json()) // Convertit la réponse en JSON
+      .then((response) => response.json())
       .then((data) => {
         if (data.message === 'User logged in successfully') {
-          // Stocker les données utilisateur dans des cookies
           Cookies.set('userId', data.user.id, { expires: 1 });
           Cookies.set('userMail', data.user.mail, { expires: 1 });
           Cookies.set('userPseudo', data.user.pseudo, { expires: 1 });
@@ -55,7 +52,7 @@ function SignInForm() {
             setSuccessMessage('');
             navigate('/');
             window.location.reload();
-          }, 3000); // Redirection après 3 secondes
+          }, 3000);
         } else {
           throw new Error(data.message || "Erreur lors de la connexion");
         }
@@ -69,12 +66,12 @@ function SignInForm() {
   return (
     <div className="signin-form-container">
       <form className="signin-form" onSubmit={handleSubmit}>
-        <h2>Connexion</h2> {/* Titre avec espace */}
-            {successMessage && (
-              <div className="alert alert-success" role="alert">
-                {successMessage}
-              </div>
-            )}
+        <h2>Connexion</h2>
+        {successMessage && (
+          <div className="alert alert-success" role="alert">
+            {successMessage}
+          </div>
+        )}
         <div className="form-control">
           <label htmlFor="mail">Mail</label>
           <input

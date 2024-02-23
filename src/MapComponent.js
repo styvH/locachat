@@ -34,7 +34,7 @@ const MapComponent = () => {
   }, []);
 
   return (
-    <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "100vh", width: "100vw", position: "fixed", top: 0, left: 0 }} zoomControl={false}>
+    <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "calc(100vh - 100px)", width: "calc(100vw - 100px)", position: "fixed", top: "80px", left: "50px" }} zoomControl={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
