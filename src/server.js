@@ -19,12 +19,15 @@ const connection = mysql.createConnection({
 });
 
 app.get('/api/positions', (req, res) => {
-  connection.query('SELECT latitude, longitude, nom_du_jardin, region, adresse_complete, description, site_internet FROM site', (err, results) => {
+  connection.query('SELECT latitude, longitude, nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, description, site_internet FROM site', (err, results) => {
     if (err) throw err;
     res.json(results.map(r => ({
       position: [parseFloat(r.latitude), parseFloat(r.longitude)],
-      nomDuJardin: r.nom_du_jardin,
-      region: r.region,
+      nomDuSite: r.nom_du_site,
+      nomDuType: r.nom_du_type,
+      codePostal: r.code_postal,
+      commune: r.commune,
+      voie: r.voie,
       adresseComplete: r.adresse_complete,
       description: r.description,
       siteInternet: r.site_internet

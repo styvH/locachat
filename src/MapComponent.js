@@ -40,9 +40,18 @@ const MapComponent = () => {
       {positions.map((site, index) => (
         <Marker key={index} position={site.position}>
           <Popup>
-            <b>{site.nomDuJardin}</b><br/>
-            {site.region}<br/>
-            {site.adresseComplete}<br/>
+            <b>{site.nomDuSite}</b><br/>
+            {site.nomDuType}<br/>
+            {
+    site.adresseComplete ?
+    <div>{site.adresseComplete}</div> :
+    <>
+      {site.codePostal && <div>{site.codePostal}</div>}
+      {site.commune && <div>{site.commune}</div>}
+      {site.voie && <div>{site.voie}</div>}
+    </>
+  }
+
             {site.description}<br/>
             {site.siteInternet ? <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">Site Web</a> : 'Pas de site web'}
           </Popup>
