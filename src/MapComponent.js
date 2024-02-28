@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet';
 import './MapComponent.css';
+import RatingStars from "./RatingStars";
 
 // Configuration de l'icône Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -112,6 +113,22 @@ const MapComponent = () => {
               </>}
               {site.description}<br/>
               {site.siteInternet ? <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">Site Web</a> : ''}
+              <hr />
+              {/* Section Commentaire et Avis */}
+              <div className="comment-section">
+                <h4>Commentaires et Avis</h4>
+                {/* Exemple de commentaires existants (devraient être récupérés depuis une base de données) */}
+                <div className="comments">
+                  <p>"Superbe visite, à recommander !" - <strong>5 étoiles</strong></p>
+                  <p>"Joli mais un peu bondé." - <strong>4 étoiles</strong></p>
+                </div>
+                {/* Section pour ajouter un nouveau commentaire */}
+                <div className="add-comment">
+                  <RatingStars onRating={(rate) => console.log(rate)} />
+                  <textarea placeholder="Votre commentaire..."></textarea>
+                  <button type="button">Envoyer</button>
+                </div>
+              </div>
             </Popup>
           </Marker>
         ))}
