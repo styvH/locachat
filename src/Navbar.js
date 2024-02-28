@@ -9,34 +9,32 @@ function Navbar() {
   const hideNavbar = location.pathname === '/signup' || location.pathname === '/signin';
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  if (hideNavbar) {
-    return null; // Ne rien rendre si nous sommes sur les routes /signup ou /signin
-  }
-
   return (
     <div className="navbar">
-    <Link to="/" className="logo">Locasite</Link> {/* Cliquez sur le logo pour revenir à l'accueil */}
-    <div>
-      {userPseudo ? (
-        <div className="dropdown">
-          <button className="dropbtn" onClick={() => setDropdownOpen(!dropdownOpen)}>
-            {userPseudo}
-          </button>
-          {dropdownOpen && (
-            <div className="dropdown-content">
-              <Link to="/dashboard">Tableau de bord</Link>
-              <LogoutButton />
+      <Link to="/" className="logo">Locasite</Link> {/* Cliquez sur le logo pour revenir à l'accueil */}
+      {!hideNavbar && (
+        <div>
+          {userPseudo ? (
+            <div className="dropdown">
+              <button className="dropbtn" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                {userPseudo}
+              </button>
+              {dropdownOpen && (
+                <div className="dropdown-content">
+                  <Link to="/dashboard">Tableau de bord</Link>
+                  <LogoutButton />
+                </div>
+              )}
             </div>
+          ) : (
+            <>
+              <Link to="/signin" className="sign-in-btn">Connexion</Link>
+              <Link to="/signup" className="sign-up-btn">Inscription</Link>
+            </>
           )}
         </div>
-      ) : (
-        <>
-          <Link to="/signin" className="sign-in-btn">Connexion</Link>
-          <Link to="/signup" className="sign-up-btn">Inscription</Link>
-        </>
       )}
     </div>
-  </div>
 
   );
 }

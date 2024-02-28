@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import React, { useState, useEffect, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet';
@@ -48,6 +48,7 @@ const FilterPanel = ({ types, selectedTypes, handleTypeSelection, handleDeselect
 
 const MapComponent = () => {
   const [positions, setPositions] = useState([]);
+  const mapRef = useRef(null);
   const [filteredPositions, setFilteredPositions] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
 
@@ -56,7 +57,14 @@ const MapComponent = () => {
       try {
         const response = await axios.get('http://localhost:3001/api/positions');
         setPositions(response.data);
+
+        // Centrer la carte au milieu après le chargement des positions
+        if (mapRef.current) {
+          mapRef.current.flyTo([16.265, -61.551], 10);
+        }
+
         setFilteredPositions(response.data); // Initialise avec toutes les données
+
       } catch (error) {
         console.error('Erreur lors de la récupération des positions:', error);
       }
@@ -95,11 +103,12 @@ const MapComponent = () => {
 
   return (
     <div>
-      <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "100vh", width: "100vw" }}>
+      <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "calc(100vh - 100px)", width: "calc(100vw - 100px)", position: "fixed", top: "80px", left: "50px" }} zoomControl={false}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        <ZoomControl position="bottomright" />
         {filteredPositions.map((site, index) => (
           <Marker key={index} position={site.position}>
             <Popup>

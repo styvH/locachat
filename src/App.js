@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import MapComponent from './MapComponent';
 import SignupForm from './SignupForm';
@@ -10,15 +10,13 @@ import Cookies from 'js-cookie';
 import Navbar from './Navbar';
 
 
-function App() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const userPseudo = Cookies.get('userPseudo'); // Lire le pseudo de l'utilisateur à partir des cookies
-  
+function App() {
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        < Navbar/>
         <Routes>
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/signin" element={<SignInForm />} />
