@@ -1,0 +1,14 @@
+.rating button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .rating .star {
+    color: gold;
+  }
+  
+  .rating .off .star {
+    color: #ddd;
+  }
+  
