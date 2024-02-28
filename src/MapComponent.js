@@ -53,7 +53,7 @@ const MapComponent = () => {
   }
 
             {site.description}<br/>
-            {site.siteInternet ? <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">Site Web</a> : 'Pas de site web'}
+            {site.siteInternet ? <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">Site Web</a> : ''}
           </Popup>
         </Marker>
       ))}
