@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-const FilterPanel = ({ types, selectedTypes, handleTypeSelection }) => {
+const FilterPanel = ({ types, selectedTypes, handleTypeSelection, handleDeselectAll }) => {
   const map = useMap();
 
   // Positionner le panneau sur la carte
@@ -39,6 +39,7 @@ const FilterPanel = ({ types, selectedTypes, handleTypeSelection }) => {
           {type}
         </label>
       ))}
+      <button onClick={handleDeselectAll} style={{ marginBottom: '10px' }}>Tout désélectionner</button>
     </div>
   );
 };
@@ -78,6 +79,11 @@ const MapComponent = () => {
     }
   }, [selectedTypes, positions]);
 
+  
+  const handleDeselectAll = () => {
+    setSelectedTypes([]); // Réinitialise les types sélectionnés
+  };
+
   // Gestion de la sélection des types
   const handleTypeSelection = (event) => {
     const { value, checked } = event.target;
@@ -93,7 +99,6 @@ const MapComponent = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <FilterPanel types={types} selectedTypes={selectedTypes} handleTypeSelection={handleTypeSelection} />
         {filteredPositions.map((site, index) => (
           <Marker key={index} position={site.position}>
             <Popup>
@@ -110,7 +115,11 @@ const MapComponent = () => {
             </Popup>
           </Marker>
         ))}
-        
+        <FilterPanel
+          types={types}
+          selectedTypes={selectedTypes}
+          handleTypeSelection={handleTypeSelection}
+          handleDeselectAll={handleDeselectAll} />
       </MapContainer>
     </div>
   );
