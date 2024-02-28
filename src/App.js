@@ -4,8 +4,11 @@ import MapComponent from './MapComponent';
 import SignupForm from './SignupForm';
 import SignInForm from './SignInForm'; 
 import Dashboard from './Dashboard';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Navbar'; 
+import LogoutButton from './LogoutButton';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import Navbar from './Navbar';
+
 
 
 function App() {

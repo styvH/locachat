@@ -35,6 +35,7 @@ function Navbar() {
         </div>
       )}
     </div>
+
   );
 }
 
