@@ -1,3 +1,122 @@
+
+/* Style général */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* Style pour la carte */
+  .map-container {
+    position: relative;
+    height: 80vh; /* Hauteur de la carte */
+    width: 90vw; /* Largeur de la carte */
+    margin: 20px auto; /* Centrer la carte horizontalement */
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  /* Style pour les popups */
+  .leaflet-popup-content-wrapper {
+    border-radius: 10px;
+  }
+  
+  .leaflet-popup-content {
+    padding: 15px;
+    font-size: 16px;
+  }
+  
+  .leaflet-popup-content b {
+    font-weight: bold;
+  }
+  
+  /* Style pour les marqueurs */
+  .leaflet-marker-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Style pour les boutons */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style pour l'interface agrandie */
+  .enlarged-interface {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+    max-width: 400px;
+  }
+  
+  .enlarged-interface h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #007bff;
+  }
+  
+  .enlarged-interface p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Style pour la barre de recherche */
+  .search-bar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  
+  .search-input {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .search-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .search-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Media query pour la version mobile */
+  @media screen and (max-width: 600px) {
+    .map-container {
+      height: 60vh; /* Hauteur de la carte pour les petits écrans */
+      width: 95vw; /* Largeur de la carte pour les petits écrans */
+    }
+  }
+  
 .filter-panel {
   position: absolute;
   top: 50%;
@@ -28,3 +147,4 @@
 .filter-panel button:hover {
   background-color: #e9e9e9;
 }
+
