@@ -19,7 +19,7 @@ body {
   
   /* Style pour les popups */
   .leaflet-popup-content-wrapper {
-    border-radius: 10px;
+    border-radius: 10px;  
   }
   
   .leaflet-popup-content {
@@ -29,6 +29,13 @@ body {
   
   .leaflet-popup-content b {
     font-weight: bold;
+  }
+  
+
+  .description-content {
+    overflow-y: auto; /* Active le défilement vertical si nécessaire */
+    margin-bottom: 10px; /* Espacement entre la description et les commentaires */
+    max-height: 100px; /* Ajustez selon vos besoins pour la partie défilable */
   }
   
   /* Style pour les marqueurs */
@@ -142,6 +149,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
+  color: black;
 }
 
 .filter-panel button:hover {
