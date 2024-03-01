@@ -1,11 +1,14 @@
+require('dotenv').config();
+
 const mysql = require('mysql');
 const axios = require('axios');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'locasite'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 // Fonction pour créer la table `site` si elle n'existe pas

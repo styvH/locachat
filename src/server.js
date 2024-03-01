@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -5,17 +7,17 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.API_PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: "3306",
-  user: 'root',
-  password: '',
-  database: 'locasite'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 app.get('/api/positions', (req, res) => {
