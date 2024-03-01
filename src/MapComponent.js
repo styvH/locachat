@@ -5,6 +5,7 @@ import axios from 'axios';
 import L from 'leaflet';
 import './MapComponent.css';
 import RatingStars from "./RatingStars";
+import Cookies from 'js-cookie';
 
 // Configuration de l'icône Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -13,6 +14,31 @@ L.Icon.Default.mergeOptions({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
+
+
+
+const ExpandableText = ({ text, maxLength = 100 }) => {
+  // Gestion des cas où text est null ou undefined
+  const displayText = text || ''; // Si text est null ou undefined, utilisez une chaîne vide
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  if (displayText.length <= maxLength) {
+    return <p>{displayText}</p>;
+  }
+
+  return (
+    <p>
+      {isExpanded ? displayText : `${displayText.substring(0, maxLength)}... `}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        style={{ color: 'blue', textDecoration: 'underline', border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+      >
+        {isExpanded ? 'Voir moins' : 'Voir plus'}
+      </button>
+    </p>
+  );
+};
+
 
 const FilterPanel = ({ types, selectedTypes, handleTypeSelection, handleDeselectAll }) => {
   const map = useMap();
@@ -52,6 +78,11 @@ const MapComponent = () => {
   const [filteredPositions, setFilteredPositions] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
 
+  const userId = useState('');
+  const [currentComment, setCurrentComment] = useState('');
+  const [currentRating, setCurrentRating] = useState(0);
+  const [comments, setComments] = useState({});
+  
   useEffect(() => {
     const fetchPositions = async () => {
       try {
@@ -100,6 +131,52 @@ const MapComponent = () => {
       checked ? [...prev, value] : prev.filter(type => type !== value)
     );
   };
+  
+  const submitComment = async (siteId) => {
+    console.log(siteId);
+    var userId = Cookies.get('userId');
+    if (!userId) {
+      console.error("L'ID de l'utilisateur n'est pas disponible.");
+      return;
+    }
+    if (!currentComment.trim() || !currentRating) {
+      alert("Veuillez entrer un commentaire et sélectionner une note.");
+      return;
+    }
+    
+  
+    try {
+      console.log(userId, siteId, currentRating, currentComment);
+      const response = await axios.post('http://localhost:3001/api/comment', {
+        userId: userId, // Assurez-vous que l'ID utilisateur est correctement géré
+        siteId: siteId,        
+        rating: currentRating,
+        comment: currentComment,
+
+      });
+  
+      // Gérer la réponse ici, par exemple, réinitialiser le formulaire
+      console.log(response.data.message);
+      setCurrentComment('');
+      setCurrentRating(0);
+    } catch (error) {
+      alert('Erreur lors de l\'envoi du commentaire:', error);
+    }
+  };
+  
+
+  const fetchComments = async (siteId) => {
+    try {
+      console.log(siteId);
+      const response = await axios.get(`http://localhost:3001/api/comments/${siteId}`);
+      setComments(prevComments => ({
+        ...prevComments,
+        [siteId]: response.data
+      }));
+    } catch (error) {
+      console.error('Erreur lors de la récupération des commentaires:', error);
+    }
+  };
 
   return (
     <div>
@@ -110,35 +187,74 @@ const MapComponent = () => {
         />
         <ZoomControl position="bottomright" />
         {filteredPositions.map((site, index) => (
-          <Marker key={index} position={site.position}>
-            <Popup>
-              <b>{site.nomDuSite}</b><br/>
-              {site.nomDuType}<br/>
-              {site.adresseComplete ? <div>{site.adresseComplete}</div> : 
-              <>
-                {site.codePostal && <div>{site.codePostal}</div>}
-                {site.commune && <div>{site.commune}</div>}
-                {site.voie && <div>{site.voie}</div>}
-              </>}
-              {site.description}<br/>
-              {site.siteInternet ? <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">Site Web</a> : ''}
-              <hr />
-              {/* Section Commentaire et Avis */}
-              <div className="comment-section">
-                <h4>Commentaires et Avis</h4>
-                {/* Exemple de commentaires existants (devraient être récupérés depuis une base de données) */}
-                <div className="comments">
-                  <p>"Superbe visite, à recommander !" - <strong>5 étoiles</strong></p>
-                  <p>"Joli mais un peu bondé." - <strong>4 étoiles</strong></p>
+          <Marker key={index} position={site.position}   
+          eventHandlers={{
+            popupopen: () => fetchComments(site.id),
+          }}>
+              <Popup>
+                <div className="popup-content">
+                  <div className="popup-header">
+                    <b>{site.nomDuSite}</b><br />
+                    {site.nomDuType}<br />
+                    <hr/>
+                    {site.adresseComplete ? (
+                      <div>{site.adresseComplete}</div>
+                    ) : (
+                      <>
+                        {site.voie && <div>{site.voie}</div>}
+                        {site.commune && <div>{site.commune}</div>}
+                        {site.codePostal && <div>{site.codePostal}</div>}
+                      </>
+                    )}
+                    {site.description && <hr/>}
+                    {site.description && (
+                        <div className="description-content">
+                          <ExpandableText text={site.description} maxLength={100} />
+                        </div>
+                      )}
+
+                    
+                    {site.siteInternet ? (
+                      <a href={site.siteInternet} target="_blank" rel="noopener noreferrer">
+                        Site Web
+                      </a>
+                    ) : ''}
+                    <hr />
+                  </div>
+                  {/* Section Commentaire et Avis reste fixe et toujours visible */}
+                  <div className="comment-section">
+                    <h4>Commentaires et Avis</h4>
+                      <div className="comments">
+                          {comments[site.id] && comments[site.id].length > 0 ? (
+                            comments[site.id].map(comment => (
+                              <div key={comment.id} className="comment">
+                                <p><strong>{comment.userPseudo}</strong> - {new Date(comment.createdAt).toLocaleDateString()} - Note: {comment.rating} <span className="star">&#9733;</span></p>
+                                <div>
+                                <span></span>
+                                  <span>{comment.comment}</span>
+                                </div>
+                                <p className="comment-date"></p>
+                              </div>
+                            ))
+                          ) : (
+                            <p>Aucun commentaire pour ce site.</p>
+                          )}
+                        </div>
+                        <hr/>
+                    <div className="add-comment">
+                    <RatingStars
+                      rating={currentRating}
+                      onRating={setCurrentRating} />
+                    <textarea
+                      value={currentComment}
+                      onChange={(e) => setCurrentComment(e.target.value)}
+                      placeholder="Votre commentaire..."
+                    ></textarea>
+                      <button type="button" onClick={() => submitComment(site.id)}>Envoyer</button>
+                    </div>
+                  </div>
                 </div>
-                {/* Section pour ajouter un nouveau commentaire */}
-                <div className="add-comment">
-                  <RatingStars onRating={(rate) => console.log(rate)} />
-                  <textarea placeholder="Votre commentaire..."></textarea>
-                  <button type="button">Envoyer</button>
-                </div>
-              </div>
-            </Popup>
+              </Popup>
           </Marker>
         ))}
         <FilterPanel

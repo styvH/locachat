@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -5,23 +7,24 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.API_PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: "8889",
-  user: 'root',
-  password: 'root',
-  database: 'locasite'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 app.get('/api/positions', (req, res) => {
-  connection.query('SELECT latitude, longitude, nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, description, site_internet FROM site', (err, results) => {
+  connection.query('SELECT id, latitude, longitude, nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, description, site_internet FROM site', (err, results) => {
     if (err) throw err;
     res.json(results.map(r => ({
+      id: r.id,
       position: [parseFloat(r.latitude), parseFloat(r.longitude)],
       nomDuSite: r.nom_du_site,
       nomDuType: r.nom_du_type,
@@ -120,6 +123,90 @@ app.post('/api/signin', (req, res) => {
   });
 });
 
+// Route pour ajouter un commentaire
+app.post('/api/comment', (req, res) => {
+  const { userId, siteId, comment, rating } = req.body;
+
+  const query = `INSERT INTO commenter (user_id, site_id, note, commentaire) VALUES (?, ?, ?, ?)`;
+
+  connection.query(query, [userId, siteId, rating, comment], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de l\'insertion du commentaire:', error);
+      res.status(500).send('Erreur lors de l\'ajout du commentaire');
+    } else {
+      console.log('Commentaire ajouté avec succès:', results);
+      res.send({ message: 'Commentaire ajouté avec succès', id: results.insertId });
+    }
+  });
+});
+
+app.get('/api/comments/:siteId', (req, res) => {
+  const { siteId } = req.params; // Récupération de l'ID du site depuis les paramètres de l'URL
+
+  const query = `
+    SELECT commenter.id, commenter.user_id, commenter.site_id, commenter.note, commenter.commentaire, commenter.created_at, users.pseudo
+    FROM commenter
+    JOIN users ON commenter.user_id = users.id
+    WHERE commenter.site_id = ?
+    ORDER BY commenter.created_at DESC
+  `;
+
+  connection.query(query, [siteId], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des commentaires:', err);
+      return res.status(500).send('Erreur lors de la récupération des commentaires');
+    }
+
+    // Transformation des résultats en un format plus convivial si nécessaire
+    const comments = results.map(comment => ({
+      id: comment.id,
+      userId: comment.user_id,
+      siteId: comment.site_id,
+      rating: comment.note,
+      comment: comment.commentaire,
+      createdAt: comment.created_at,
+      userPseudo: comment.pseudo // Inclure le pseudo de l'utilisateur si joint avec la table des utilisateurs
+    }));
+
+    res.json(comments);
+  });
+});
+
+
+app.get('/api/rating/average/:siteId', (req, res) => {
+  const { siteId } = req.params;
+
+  const query = `
+    SELECT
+      COUNT(commenter.id) AS numberOfReviews,
+      AVG(commenter.note) AS averageRating
+    FROM commenter
+    WHERE commenter.site_id = ?
+  `;
+
+  connection.query(query, [siteId], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération de la moyenne des notes:', err);
+      return res.status(500).send('Erreur lors de la récupération de la moyenne des notes');
+    }
+
+    // S'assurer que le résultat est non nul et a au moins une ligne
+    if (results.length > 0) {
+      const { numberOfReviews, averageRating } = results[0];
+      res.json({
+        siteId: siteId,
+        numberOfReviews: numberOfReviews,
+        averageRating: averageRating ? parseFloat(averageRating).toFixed(2) : 0 // Formatte la moyenne à deux décimales, gère les cas sans avis
+      });
+    } else {
+      res.json({
+        siteId: siteId,
+        numberOfReviews: 0,
+        averageRating: 0
+      });
+    }
+  });
+});
 
 
 

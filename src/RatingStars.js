@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./RatingStars.css";
 
 const RatingStars = ({ onRating }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0); // Pour gérer l'état de survol
+
+    // Appeler onRating à chaque fois que la note change
+    useEffect(() => {
+        onRating(rating);
+      }, [rating, onRating]);
 
   return (
     <div className="rating">
