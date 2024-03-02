@@ -1,82 +1,46 @@
 # Locasite
 
-M2 MIAGE : Projet WEBSERVICE Hauterville et Barvaut
-Application liant Géolocalisation et Communication API REST
+M2 MIAGE : Projet WEBSERVICE Application liant Géolocalisation et Communication API REST
 
-API de localisation https://www.openstreetmap.org/ 
+Réalisé par 
+BARVAUT Teddrice
+HAUTERVILLE Styvan
+OZIER-LAFONTAINE Josuah
 
-Langages de programmation :
+L'application fonctionne avec React et Node.js
 
-Back : Node.js 
-Front : React.js
+# Instructions de démarrage du projet
 
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `git clone https://github.com/styvH/locasite`
 
-## Available Scripts
+### `cd locasite`
 
-In the project directory, you can run:
+### `cp .env.example .env`
 
-### `npm start`
+### `npm install` / `npm update`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Initialisation des données 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Après avoir configuré votre fichier .env avec les informations de votre base de donnée, vous pourrez lancer les commandes suivantes : 
 
-### `npm test`
+### `node initDatabase.js`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `node insertSite1.js`
 
-### `npm run build`
+### `node insertSite2.js`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ces commandes initialiseront votre base de données sélectionné et alimenteront la table des sites à partir des API suivantes :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+https://www.karudata.com/explore/dataset/liste-des-jardins-remarquables/api/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+https://www.karudata.com/explore/dataset/les-lieux-remarquables-de-la-guadeloupe/api/
 
-### `npm run eject`
+## Scripts de lancement du projet
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Lancement du serveur : `node src/server.js`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Lancement du projet : `npm start`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ouvrez la page [http://localhost:3000](http://localhost:3000) pour voir le rendu dans votre navigateur.
