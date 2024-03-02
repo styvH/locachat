@@ -22,7 +22,7 @@ L'application fonctionne avec React et Node.js
 
 #### Initialisation des données 
 
-Après avoir configuré votre fichier .env avec les informations de votre base de donnée, vous pourrez lancer les commandes suivantes : 
+Après avoir configuré votre fichier .env avec les informations de votre base de donnée phpmyadmin, vous pourrez lancer les commandes suivantes : 
 
 ### `node initDatabase.js`
 
