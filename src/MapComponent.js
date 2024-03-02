@@ -191,7 +191,18 @@ const MapComponent = () => {
 
   return (
     <div>
-      <MapContainer center={[16.265, -61.551]} zoom={10} style={{ height: "calc(100vh - 100px)", width: "calc(100vw - 100px)", position: "fixed", top: "80px", left: "80px" }} zoomControl={false}>
+      <MapContainer
+  center={[16.265, -61.551]}
+  zoom={10}
+  style={{
+    height: 'calc(100vh - 60px)', // Ajuste pour la hauteur de la navbar
+    width: '100%',
+    position: 'absolute',
+    top: '60px', // Démarre juste en dessous de la navbar
+    left: '0'
+  }}
+  zoomControl={false}
+>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -7,12 +7,12 @@ body {
     background-color: #f8f9fa;
   }
   
-  /* Style pour la carte */
+  
   .map-container {
     position: relative;
-    height: 80vh; /* Hauteur de la carte */
-    width: 90vw; /* Largeur de la carte */
-    margin: 20px auto; /* Centrer la carte horizontalement */
+    height: 80vh; 
+    width: 90vw; 
+    margin: 20px auto; 
     border-radius: 15px;
     overflow: hidden;
   }
