@@ -1,15 +1,191 @@
 table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  tr:hover {
-    background-color: #f5f5f5;
-  }
-  
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden; /* Permet aux coins arrondis de la première et dernière ligne de s'appliquer */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ajoute une ombre douce pour un effet de profondeur */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Polices modernes */
+}
+
+th, td {
+  padding: 12px 15px; /* Plus d'espacement */
+  text-align: left; /* Alignement à gauche */
+  border-bottom: 1px solid #ddd; /* Ligne de séparation plus subtile */
+}
+
+th {
+  background-color: #f8f8f8; /* Couleur de fond pour l'en-tête */
+  color: #333; /* Couleur de texte pour l'en-tête */
+  font-weight: 600; /* Rend le texte de l'en-tête un peu plus gras */
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa; /* Zébrure pour améliorer la lisibilité */
+}
+
+tr:hover {
+  background-color: #f1f1f1; /* Couleur au survol */
+  cursor: pointer; /* Change le curseur pour indiquer la possibilité de cliquer */
+}
+
+a {
+  color: #007bff; /* Couleur des liens */
+  text-decoration: none; /* Enlève le soulignement */
+}
+
+a:hover {
+  text-decoration: underline; /* Ajoute un soulignement au survol pour indiquer la possibilité de cliquer */
+}
+
+div[name="dashboard"] {
+  margin-top: 5%;
+}
+
+div[name="dashboard"] button {
+  background-color: #4CAF50; /* Vert foncé */
+  color: white;
+  padding: 10px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+div[name="dashboard"] button:hover {
+  background-color: #3e8e41; /* Une teinte de vert plus foncée pour le survol */
+}
+
+form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ajoutez ceci pour inclure le padding dans la largeur */
+}
+
+textarea {
+  height: 100px;
+  resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #009879; /* Vert foncé */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #007961; /* Une teinte de vert plus foncée pour le survol */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Amélioration de l'accessibilité des focus */
+input[type="text"]:focus,
+input[type="url"]:focus,
+textarea:focus {
+  border-color: #009879; /* Couleur de mise en évidence lors de la mise au point */
+  outline: none; /* Supprime l'outline par défaut pour les éléments focalisés */
+}
+
+/* Style pour les messages d'erreur ou de succès */
+.message {
+  color: #d32f2f; /* Couleur rouge pour les messages d'erreur */
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.success {
+  color: #388e3c; /* Couleur verte pour les messages de succès */
+}
+
+
+/* Style pour le tableau des utilisateurs */
+.table-users {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table-users th,
+.table-users td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.table-users th {
+  background-color: #f8f8f8;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.table-users tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.table-users tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.button-edit {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffa726;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-edit:hover {
+  background-color: #fb8c00;
+}
+
+.message {
+  margin-top: 15px;
+  color: #388e3c; /* Vert pour le succès */
+  font-size: 0.9rem;
+}
+
+.button-delete {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f44336; /* Rouge pour la suppression */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-delete:hover {
+  background-color: #d32f2f; /* Une teinte de rouge plus foncée pour le survol */
+}
+

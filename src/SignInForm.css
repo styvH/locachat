@@ -1,11 +1,24 @@
-/* Styles spécifiques pour le formulaire de connexion */
-.signin-form-container {
+.modal-backdrop {
+  position: fixed; /* Position fixe par rapport à la fenêtre du navigateur */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #f0f2f5;
+  backdrop-filter: blur(5px); /* Floutage du fond */
+  z-index: 1000; /* Assurez-vous que le fond est au-dessus des autres éléments */
+}
+
+.signin-form-container {
+  position: relative; /* Pour positionner le bouton de fermeture par rapport à ce conteneur */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1001; /* Assurez-vous que le formulaire est au-dessus du fond */
+  /* Le reste de votre style pour .signin-form-container */
 }
 
 .signin-form {
@@ -72,4 +85,20 @@
 .signin-form .form-footer a:hover {
   text-decoration: underline;
   color: #333; /* Modified to match the actions i hover effect */
+}
+
+.close-btn {
+  position: absolute; /* Positionnez le bouton par rapport au conteneur parent */
+  top: 10px; /* Ajustez comme nécessaire */
+  right: 10px; /* Ajustez comme nécessaire */
+  border: none;
+  background: none;
+  font-size: 20px; /* Ajustez la taille comme nécessaire */
+  cursor: pointer;
+  color:black;
+}
+
+/* Ajoutez des styles supplémentaires pour l'interaction au survol si nécessaire */
+.close-btn:hover {
+  color: #f00; /* Par exemple, changez la couleur lors du survol */
 }
