@@ -22,6 +22,15 @@ function Navbar() {
   const openSigninModal = () => setShowSigninModal(true);
   const closeSigninModal = () => setShowSigninModal(false);
 
+  const handleSwitchToSignUp = () => {
+    closeSigninModal();
+    openSignupModal();
+  }
+  const handleSwitchToSignIn = () => {
+    closeSignupModal();
+    openSigninModal();
+  }
+
   return (
     <div className="navbar">
       <Link to="/" className="logo">Locasite</Link> {/* Cliquez sur le logo pour revenir à l'accueil */}
@@ -50,12 +59,12 @@ function Navbar() {
 
             {/* Modal for Signup */}
             {showSignupModal && (
-                <SignupForm onClose={closeSignupModal}/>
+                <SignupForm onClose={closeSignupModal} onSwitchToSignIn={handleSwitchToSignIn}/>
             )}
 
             {/* Modal for Signin */}
             {showSigninModal && (
-                <SignInForm onClose={closeSigninModal} />
+                <SignInForm onClose={closeSigninModal} onSwitchToSignUp={handleSwitchToSignUp}/>
             )}
     </div>
 

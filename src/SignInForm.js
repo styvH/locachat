@@ -3,7 +3,7 @@ import './SignInForm.css';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-function SignInForm({onClose}) {
+function SignInForm({onClose, onSwitchToSignUp}) {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
@@ -113,7 +113,7 @@ function SignInForm({onClose}) {
           </button>
           <div className="form-footer">
             <p>
-              Pas encore inscrit ? <a href="/signup">Inscrivez-vous ici</a>
+              Pas encore inscrit ? <span onClick={onSwitchToSignUp} className="link-like-button">Inscrivez-vous ici</span>
             </p>
           </div>
         </form>

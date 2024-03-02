@@ -100,3 +100,20 @@
     color: #f00; /* Par exemple, changez la couleur lors du survol */
   }
   
+  .link-like-button {
+    background: none;
+    color: blue; /* Choisissez la couleur correspondant à vos liens */
+    border: none;
+    padding: 0;
+    font: inherit; /* Pour s'assurer que la police correspond à votre texte environnant */
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: underline; /* Pour imiter l'aspect d'un lien */
+  }
+  
+  .link-like-button:hover,
+  .link-like-button:focus {
+    color: darkblue; /* Couleur au survol et au focus, ajustez selon vos préférences */
+    text-decoration: none; /* Optionnel: enlever le soulignement au survol/focus pour différencier du comportement de lien */
+  }
+  
