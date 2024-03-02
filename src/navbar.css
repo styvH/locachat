@@ -1,0 +1,78 @@
+/* Styles généraux pour la Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50; /* Couleur de fond plus sophistiquée */
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar a.logo {
+    color: #ECF0F1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar a.logo:hover {
+    color: #BDC3C7;
+  }
+  
+  /* Boutons et liens */
+  .navbar button, .navbar a {
+    color: #ECF0F1;
+    background-color: transparent;
+    border: none;
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .navbar button:hover, .navbar a:hover {
+    background-color: #34495E;
+    color: #FFFFFF;
+  }
+  
+  /* Dropdown */
+  .dropdown-content {
+    background-color: #ECF0F1;
+    color: #2C3E50;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  
+  .dropdown-content a, .dropdown-content button {
+    color: #2C3E50;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover, .dropdown-content button:hover {
+    background-color: #BDC3C7;
+  }
+  
+  /* Adaptations pour les petits écrans */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      padding: 1rem;
+    }
+  
+    .navbar a, .navbar button {
+      margin: 5px 0; /* Espacement vertical pour les éléments sur petits écrans */
+    }
+  }
+  

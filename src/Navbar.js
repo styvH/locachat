@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import LogoutButton from './LogoutButton';
 import SignupForm from './SignupForm';
 import SignInForm from './SignInForm'; 
+import './navbar.css';
 
 
 function Navbar() {
