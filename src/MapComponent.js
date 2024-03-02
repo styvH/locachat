@@ -133,7 +133,6 @@ const MapComponent = () => {
   };
   
   const submitComment = async (siteId) => {
-    console.log(siteId);
     var userId = Cookies.get('userId');
     if (!userId) {
       console.error("L'ID de l'utilisateur n'est pas disponible.");
@@ -167,8 +166,20 @@ const MapComponent = () => {
 
   const fetchComments = async (siteId) => {
     try {
-      console.log(siteId);
       const response = await axios.get(`http://localhost:3001/api/comments/${siteId}`);
+      setComments(prevComments => ({
+        ...prevComments,
+        [siteId]: response.data
+      }));
+    } catch (error) {
+      console.error('Erreur lors de la récupération des commentaires:', error);
+    }
+  };
+
+  
+  const fetchRating = async (siteId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/rating/average/${siteId}`);
       setComments(prevComments => ({
         ...prevComments,
         [siteId]: response.data

@@ -209,6 +209,86 @@ app.get('/api/rating/average/:siteId', (req, res) => {
 });
 
 
+app.post('/api/addSite', (req, res) => {
+  const { nomDuJardin, codePostal, region, departement, adresseComplete, latitude, longitude, siteInternet, description } = req.body;
+  const query = 'INSERT INTO site (nom_du_jardin, code_postal, region, departement, adresse_complete, latitude, longitude, site_internet, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+  connection.query(query, [nomDuJardin, codePostal, region, departement, adresseComplete, latitude, longitude, siteInternet, description], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de l\'ajout du site', err);
+      res.status(500).send('Erreur lors de l\'ajout du site');
+    } else {
+      res.status(201).send('Site ajouté avec succès');
+    }
+  });
+});
+
+app.put('/api/editUser/:id', (req, res) => {
+  const { id } = req.params;
+  const { accessRight } = req.body;
+
+  if (!accessRight) {
+    return res.status(400).send('Les droits d\'accès sont requis.');
+  }
+
+  const query = 'UPDATE users SET access_right = ? WHERE id = ?';
+
+  connection.query(query, [accessRight, id], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la modification des droits d\'accès', err);
+      return res.status(500).send('Erreur lors de la modification des droits d\'accès.');
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send('Utilisateur non trouvé.');
+    }
+    res.status(200).send('Droits d\'accès modifiés avec succès.');
+  });
+});
+
+app.get('/api/users', (req, res) => {
+  connection.query('SELECT id, pseudo, access_right FROM users', (err, results) => {
+    if (err) throw err;
+    res.json(results.map(r => ({
+      id: r.id,
+      pseudo: r.pseudo,
+      accessRight: r.access_right,
+    })));
+  });
+});
+
+app.delete('/api/deleteUser/:id', (req, res) => {
+  const { id } = req.params;
+
+  const query = 'DELETE FROM users WHERE id = ?';
+
+  connection.query(query, [id], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la suppression de l\'utilisateur', err);
+      return res.status(500).send('Erreur lors de la suppression de l\'utilisateur.');
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send('Utilisateur non trouvé.');
+    }
+    res.status(200).send('Utilisateur supprimé avec succès.');
+  });
+});
+
+app.delete('/api/deleteSite/:id', (req, res) => {
+  const { id } = req.params;
+  const query = 'DELETE FROM site WHERE id = ?';
+
+  connection.query(query, [id], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la suppression du site', err);
+      return res.status(500).send('Erreur lors de la suppression du site.');
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send('Site non trouvé.');
+    }
+    res.status(200).send('Site supprimé avec succès.');
+  });
+});
+
 
 
 app.listen(PORT, () => {

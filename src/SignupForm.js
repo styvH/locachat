@@ -3,7 +3,7 @@ import './SignupForm.css';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-function SignupForm() {
+function SignupForm({onClose}) {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
@@ -93,75 +93,83 @@ function SignupForm() {
       });
   };
   
+  // Ferme le modal lorsque l'utilisateur clique en dehors du formulaire
+  const handleBackdropClick = (e) => {
+    if (e.target.id === "modal-backdrop") {
+      onClose();
+    }
+  };
 
   return (
-    <div className="signup-form-container">
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <h2>Inscription</h2> {/* Titre avec espace */}
-          {successMessage && (
-            <div className="alert alert-success" role="alert">
-              {successMessage}
+    <div id="modal-backdrop" className="modal-backdrop" onClick={handleBackdropClick}>
+      <div className="signin-form-container" onClick={(e) => e.stopPropagation()}>
+        <button className="close-btn" onClick={onClose}>X</button>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <h2>Inscription</h2> {/* Titre avec espace */}
+            {successMessage && (
+              <div className="alert alert-success" role="alert">
+                {successMessage}
+              </div>
+            )}
+          <div className="form-control">
+            <label htmlFor="pseudo">Pseudo</label>
+            <input
+              type="text"
+              id="pseudo"
+              name="pseudo"
+              value={formData.pseudo}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="mail">Mail</label>
+            <input
+              type="email"
+              id="mail"
+              name="mail"
+              value={formData.mail}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="password">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="confirmPassword">Confirmation du mot de passe</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+            {errorMessage && (
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
             </div>
           )}
-        <div className="form-control">
-          <label htmlFor="pseudo">Pseudo</label>
-          <input
-            type="text"
-            id="pseudo"
-            name="pseudo"
-            value={formData.pseudo}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="mail">Mail</label>
-          <input
-            type="email"
-            id="mail"
-            name="mail"
-            value={formData.mail}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Mot de passe</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="confirmPassword">Confirmation du mot de passe</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-          {errorMessage && (
-          <div className="alert alert-danger" role="alert">
-            {errorMessage}
+          <button type="submit" className="submit-btn">
+            Inscription
+          </button>
+          <div className="form-footer">
+            <p>
+              Déjà inscrit ? <a href="/signin">Connectez-vous ici</a>
+            </p>
           </div>
-        )}
-        <button type="submit" className="submit-btn">
-          Inscription
-        </button>
-        <div className="form-footer">
-          <p>
-            Déjà inscrit ? <a href="/signin">Connectez-vous ici</a>
-          </p>
-        </div>
-      </form>
-
+        </form>
+      </div>
     </div>
   );
 }
