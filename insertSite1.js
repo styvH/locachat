@@ -16,7 +16,7 @@ const createTableIfNotExists = () => {
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS site ( 
       id INT AUTO_INCREMENT PRIMARY KEY,
-      nom_du_type VARCHAR(255),      
+      nom_du_type VARCHAR(255) DEFAULT 'Divers',      
       nom_du_site VARCHAR(255) NOT NULL,
       code_postal VARCHAR(10),
       commune VARCHAR(255),

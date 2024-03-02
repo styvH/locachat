@@ -210,10 +210,9 @@ app.get('/api/rating/average/:siteId', (req, res) => {
 
 
 app.post('/api/addSite', (req, res) => {
-  const { nomDuJardin, codePostal, region, departement, adresseComplete, latitude, longitude, siteInternet, description } = req.body;
-  const query = 'INSERT INTO site (nom_du_jardin, code_postal, region, departement, adresse_complete, latitude, longitude, site_internet, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-
-  connection.query(query, [nomDuJardin, codePostal, region, departement, adresseComplete, latitude, longitude, siteInternet, description], (err, result) => {
+  const { nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, latitude, longitude, site_internet, description } = req.body;
+  const query = `INSERT INTO site (nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, latitude, longitude, site_internet, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+  connection.query(query, [nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, latitude, longitude, site_internet, description], (err, result) => {
     if (err) {
       console.error('Erreur lors de l\'ajout du site', err);
       res.status(500).send('Erreur lors de l\'ajout du site');

@@ -119,9 +119,10 @@ function Dashboard() {
                     <table>
                         <thead>
                         <tr>
-                            <th>Nom du Jardin</th>
-                            <th>Région</th>
+                            <th>Nom du Lieu</th>
+                            <th>Type</th>
                             <th>Adresse</th>
+                            <th>Position</th>
                             <th>Description</th>
                             <th>Site Internet</th>
                             <th>Action</th>
@@ -130,12 +131,18 @@ function Dashboard() {
                         <tbody>
                         {positions.map((position, index) => (
                             <tr key={index}>
-                                <td>{position.nomDuJardin}</td>
-                                <td>{position.region}</td>
+                                <td>{position.nomDuSite}</td>
+                                <td>{position.nomDuType}</td>
                                 <td>{position.adresseComplete}</td>
+                                <td>{position.position}</td>
                                 <td>{position.description}</td>
-                                <td><a href={position.siteInternet} target="_blank"
-                                       rel="noopener noreferrer">Visiter</a></td>
+                                <td>
+                                    
+                                    <a href={position.site_internet} target="_blank" rel="noopener noreferrer">
+                                        Visiter
+                                    </a>
+                                       
+                                </td>
                                 <td>
                                     <button className="button-edit"
                                             onClick={() => handleEditSite(position.id)}>Modifier
@@ -183,14 +190,15 @@ function Dashboard() {
             )}
             {display === 'addSite' && (
                 <form onSubmit={handleAddSite}>
-                    <input type="text" name="nomDuJardin" placeholder="Nom du Jardin" required/>
-                    <input type="text" name="codePostal" placeholder="Code Postal" required/>
-                    <input type="text" name="region" placeholder="Région" required/>
-                    <input type="text" name="departement" placeholder="Département" required />
-                    <input type="text" name="adresseComplete" placeholder="Adresse Complète" required />
-                    <input type="text" name="latitude" placeholder="Latitude" required />
-                    <input type="text" name="longitude" placeholder="Longitude" required />
-                    <input type="url" name="siteInternet" placeholder="Site Internet" />
+                    <input type="text" name="nom_du_site" placeholder="Nom du Site *" required/>
+                    <input type="text" name="nom_du_type" placeholder="Nom du Type"/>
+                    <input type="text" name="code_postal" placeholder="Code Postal"/>
+                    <input type="text" name="commune" placeholder="Commune"/>
+                    <input type="text" name="voie" placeholder="Voie"/>
+                    <input type="text" name="adresse_complete" placeholder="Adresse Complète"/>
+                    <input type="text" name="latitude" placeholder="Latitude *" required />
+                    <input type="text" name="longitude" placeholder="Longitude *" required />
+                    <input type="url" name="site_internet" placeholder="Site Internet" />
                     <textarea name="description" placeholder="Description"></textarea>
                     <button type="submit">Ajouter le Site</button>
                     {message && <div className="message">{message}</div>}
