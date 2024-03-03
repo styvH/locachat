@@ -76,3 +76,23 @@
     }
   }
   
+.dropdown-content .logout-button {
+  color: #ff0000;
+} 
+/* Ensure LogoutButton does not overflow */
+.logout-button {
+  color: #ff0000; /* Couleur du texte initiale */
+  border: none;
+  padding: 10px 20px; /* Adjust if necessary to fit within the dropdown */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition douce pour le changement de couleur */
+  max-width: calc(100% - 40px); /* Subtract total horizontal padding */
+  box-sizing: content-box; /* Include padding in the width and height */
+  display: block; /* This will fill the width of its container */
+}
+
+.dropdown-content .logout-button:hover {
+  background-color: grey; /* Couleur de fond au survol */
+  font-weight: bold;
+  color: #ff0000;
+}

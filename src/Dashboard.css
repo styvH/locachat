@@ -44,7 +44,7 @@ div[name="dashboard"] {
 }
 
 div[name="dashboard"] button {
-  background-color: #4CAF50; /* Vert foncé */
+  background-color: #2C3E50; /* Vert foncé */
   color: white;
   padding: 10px 24px;
   margin: 10px;
@@ -55,7 +55,7 @@ div[name="dashboard"] button {
 }
 
 div[name="dashboard"] button:hover {
-  background-color: #3e8e41; /* Une teinte de vert plus foncée pour le survol */
+  background-color: #333; /* Une teinte de vert plus foncée pour le survol */
 }
 
 form {
@@ -88,7 +88,7 @@ button[type="submit"] {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #009879; /* Vert foncé */
+  background-color: #2C3E50; /* Vert foncé */
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -96,7 +96,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #007961; /* Une teinte de vert plus foncée pour le survol */
+  background-color: #BDC3C7; /* Une teinte de vert plus foncée pour le survol */
 }
 
 label {
@@ -109,7 +109,7 @@ label {
 input[type="text"]:focus,
 input[type="url"]:focus,
 textarea:focus {
-  border-color: #009879; /* Couleur de mise en évidence lors de la mise au point */
+  border-color: #BDC3C7; /* Couleur de mise en évidence lors de la mise au point */
   outline: none; /* Supprime l'outline par défaut pour les éléments focalisés */
 }
 

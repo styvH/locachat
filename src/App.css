@@ -46,7 +46,6 @@
 }
 
 .dropbtn {
-  background-color: #4CAF50;
   color: white;
   padding: 10px;
   font-size: 16px;
@@ -77,10 +76,6 @@
 .dropdown-content a:hover, .dropdown-content button:hover {background-color: #f1f1f1;}
 
 .dropdown:hover .dropdown-content {display: block;}
-
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
-}
 
 .dropdown-content button {
   width: 100%;
