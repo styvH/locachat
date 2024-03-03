@@ -153,6 +153,33 @@ function Dashboard() {
     const showPositions = () => setDisplay('positions'); // Fonction pour afficher les sites
     const showUsers = () => setDisplay('users'); // Fonction pour afficher les utilisateurs
 
+    // États pour la pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sitesPerPage, setSitesPerPage] = useState(5); // par exemple, 10 sites par page
+
+    // Fonction pour calculer le nombre total de pages
+    const pageCount = Math.ceil(positions.length / sitesPerPage);
+
+    // Fonction pour changer la page
+    const goToPage = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Calculer les indices des sites pour la page actuelle
+    const indexOfLastSite = currentPage * sitesPerPage;
+    const indexOfFirstSite = indexOfLastSite - sitesPerPage;
+    const currentSites = positions.slice(indexOfFirstSite, indexOfLastSite);
+
+    // Rendre les contrôles de pagination
+    const renderPageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1).map(number => {
+        return (
+            <button key={number} onClick={() => goToPage(number)} disabled={currentPage === number}>
+                {number}
+            </button>
+        );
+    });
+
+
     return (
         <div name = "dashboard">
             <br/>
@@ -163,8 +190,9 @@ function Dashboard() {
             <div className='components'>
                 {display === 'positions' && (
                     <>
-                        <h2>Liste des Sites</h2>
-                        <button onClick={openNewSiteModal}>+ Nouveau Lieu</button>
+                        <h2>Liste des Sites</h2> 
+                        
+                        <button onClick={openNewSiteModal}>+ Nouveau Lieu</button> <span className='totalsites'>(total : {positions.length} sites)</span>
                         <table>
                             <thead>
                             <tr>
@@ -178,7 +206,7 @@ function Dashboard() {
                             </tr>
                             </thead>
                             <tbody>
-                            {positions.map((position, index) => (
+                            {currentSites.map((position, index) => (
                                 <tr key={index}>
                                     <td>{position.nomDuSite}</td>
                                     <td>{position.nomDuType}</td>
@@ -204,6 +232,9 @@ function Dashboard() {
                             ))}
                             </tbody>
                         </table>
+                        <div className="pagination">
+                            {renderPageNumbers}
+                        </div>
                     </>
                 )}
                 {display === 'users' && (

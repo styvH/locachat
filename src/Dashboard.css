@@ -247,3 +247,8 @@ textarea:focus {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
+.totalsites {
+  font: italic;
+  color: grey;
+}
