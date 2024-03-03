@@ -40,7 +40,9 @@ a:hover {
 }
 
 div[name="dashboard"] {
+  display:flex;
   margin-top: 5%;
+  width: 100%;
 }
 
 div[name="dashboard"] button {
@@ -189,3 +191,59 @@ textarea:focus {
   background-color: #d32f2f; /* Une teinte de rouge plus foncée pour le survol */
 }
 
+.sidebar {
+  background-color: #333;
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column; /* Organise les boutons verticalement */
+  justify-content: flex-start; /* Alignement vertical */
+  align-items: flex-start; /* Alignement horizontal */
+  padding: 10px;
+  margin-right: 20px; /* Espacement entre la barre latérale et le contenu principal */
+  height: auto; /* Utilisez la hauteur de la fenêtre d'affichage si nécessaire */
+}
+
+.navbtn {
+  width: 100%; /* Fait en sorte que chaque bouton prenne toute la largeur de la sidebar */
+  margin-bottom: 8px; /* Ajoute un petit espace entre les boutons */
+  margin-left: 0%;
+  text-align: center; /* Centre le texte dans les boutons */
+}
+
+
+.components {
+  margin-top: 5%;
+  flex-grow: 1;
+  padding: 1;
+  overflow: auto;
+  overflow-y: auto;
+}
+
+.modal-backdrop {
+  position: fixed; /* Position fixe par rapport à la fenêtre du navigateur */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px); /* Floutage du fond */
+  z-index: 1001; /* Assurez-vous que le fond est au-dessus des autres éléments */
+  border-radius: 5%;
+}
+
+.cancel-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2C3E50; /* Vert foncé */
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

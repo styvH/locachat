@@ -7,6 +7,11 @@ function Dashboard() {
     const [display, setDisplay] = useState('users'); // Nouvel état pour suivre l'affichage
     const [message, setMessage] = useState('');
 
+    const [isNewSiteModalOpen, setIsNewSiteModalOpen] = useState(false);
+
+    const openNewSiteModal = () => setIsNewSiteModalOpen(true);
+    const closeNewSiteModal = () => setIsNewSiteModalOpen(false);
+
     useEffect(() => {
         fetch('http://localhost:3001/api/positions')
             .then(response => response.json())
@@ -110,99 +115,111 @@ function Dashboard() {
     return (
         <div name = "dashboard">
             <br/>
-            <button onClick={showPositions}>Sites</button>
-            <button onClick={showUsers}>Utilisateurs</button>
-            <button onClick={() => setDisplay('addSite')}>Ajout Site</button>
-            {display === 'positions' && (
-                <>
-                    <h2>Liste des Sites</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Nom du Lieu</th>
-                            <th>Type</th>
-                            <th>Adresse</th>
-                            <th>Position</th>
-                            <th>Description</th>
-                            <th>Site Internet</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {positions.map((position, index) => (
-                            <tr key={index}>
-                                <td>{position.nomDuSite}</td>
-                                <td>{position.nomDuType}</td>
-                                <td>{position.adresseComplete}</td>
-                                <td>{position.position}</td>
-                                <td>{position.description}</td>
-                                <td>
-                                    
-                                    <a href={position.site_internet} target="_blank" rel="noopener noreferrer">
-                                        Visiter
-                                    </a>
-                                       
-                                </td>
-                                <td>
-                                    <button className="button-edit"
-                                            onClick={() => handleEditSite(position.id)}>Modifier
-                                    </button>
-                                    <button className="button-delete"
-                                            onClick={() => handleDeleteSite(position.id)}>Supprimer
-                                    </button>
-                                </td>
+            <div className='sidebar'>
+                <button className='navbtn' onClick={showPositions}>Gestion Sites</button>
+                <button className='navbtn' onClick={showUsers}>Gestion Utilisateurs</button>
+            </div>
+            <div className='components'>
+                {display === 'positions' && (
+                    <>
+                        <h2>Liste des Sites</h2>
+                        <button onClick={openNewSiteModal}>+ Nouveau Lieu</button>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Nom du Lieu</th>
+                                <th>Type</th>
+                                <th>Adresse</th>
+                                <th>Position</th>
+                                <th>Description</th>
+                                <th>Site Internet</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </>
-            )}
-            {display === 'users' && (
-                <>
-                    <h2>Liste des Utilisateurs</h2>
-                    <table className="table-users">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Pseudo</th>
-                            <th>Droit d'accès</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {users.map((user, index) => (
-                            <tr key={index}>
-                                <td>{user.id}</td>
-                                <td>{user.pseudo}</td>
-                                <td>{user.accessRight}</td>
-                                <td>
-                                    <button className="button-edit" onClick={() => handleEditUser(user.id)}>Modifier
-                                    </button>
-                                    <button className="button-delete" onClick={() => handleDeleteUser(user.id)}>Supprimer
-                                    </button>
-                                </td>
+                            </thead>
+                            <tbody>
+                            {positions.map((position, index) => (
+                                <tr key={index}>
+                                    <td>{position.nomDuSite}</td>
+                                    <td>{position.nomDuType}</td>
+                                    <td>{position.adresseComplete}</td>
+                                    <td>{position.position}</td>
+                                    <td>{position.description}</td>
+                                    <td>
+                                        
+                                        <a href={position.site_internet} target="_blank" rel="noopener noreferrer">
+                                            Visiter
+                                        </a>
+                                        
+                                    </td>
+                                    <td>
+                                        <button className="button-edit"
+                                                onClick={() => handleEditSite(position.id)}>Modifier
+                                        </button>
+                                        <button className="button-delete"
+                                                onClick={() => handleDeleteSite(position.id)}>Supprimer
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </>
+                )}
+                {display === 'users' && (
+                    <>
+                        <h2>Liste des Utilisateurs</h2>
+                        <table className="table-users">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Pseudo</th>
+                                <th>Droit d'accès</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {users.map((user, index) => (
+                                <tr key={index}>
+                                    <td>{user.id}</td>
+                                    <td>{user.pseudo}</td>
+                                    <td>{user.accessRight}</td>
+                                    <td>
+                                        <button className="button-edit" onClick={() => handleEditUser(user.id)}>Modifier
+                                        </button>
+                                        <button className="button-delete" onClick={() => handleDeleteUser(user.id)}>Supprimer
+                                        </button>
+                                    </td>
 
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </>
-            )}
-            {display === 'addSite' && (
-                <form onSubmit={handleAddSite}>
-                    <input type="text" name="nom_du_site" placeholder="Nom du Site *" required/>
-                    <input type="text" name="nom_du_type" placeholder="Nom du Type"/>
-                    <input type="text" name="code_postal" placeholder="Code Postal"/>
-                    <input type="text" name="commune" placeholder="Commune"/>
-                    <input type="text" name="voie" placeholder="Voie"/>
-                    <input type="text" name="adresse_complete" placeholder="Adresse Complète"/>
-                    <input type="text" name="latitude" placeholder="Latitude *" required />
-                    <input type="text" name="longitude" placeholder="Longitude *" required />
-                    <input type="url" name="site_internet" placeholder="Site Internet" />
-                    <textarea name="description" placeholder="Description"></textarea>
-                    <button type="submit">Ajouter le Site</button>
-                    {message && <div className="message">{message}</div>}
-                </form>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </>
+                )}
+            </div>
+            {isNewSiteModalOpen && (
+                <div className="modal-backdrop">
+                    <div className="modal-content">
+                        
+                        <form onSubmit={handleAddSite}>
+                            <h2>Ajouter un lieu</h2> <br/>
+                            {/* ...champs du formulaire... */}
+                            <input type="text" name="nom_du_site" placeholder="Nom du Site *" required/>
+                            <input type="text" name="nom_du_type" placeholder="Nom du Type"/>
+                            <input type="text" name="code_postal" placeholder="Code Postal"/>
+                            <input type="text" name="commune" placeholder="Commune"/>
+                            <input type="text" name="voie" placeholder="Voie"/>
+                            <input type="text" name="adresse_complete" placeholder="Adresse Complète"/>
+                            <input type="text" name="latitude" placeholder="Latitude *" required />
+                            <input type="text" name="longitude" placeholder="Longitude *" required />
+                            <input type="url" name="site_internet" placeholder="Site Internet" />
+                            <textarea name="description" placeholder="Description"></textarea>
+                            <button type="submit">Ajouter le Site</button>
+                            <button type="button" className='cancel-btn' onClick={closeNewSiteModal}>Annuler</button>
+                            {message && <div className="message">{message}</div>}
+                        </form>
+                    </div>
+                </div>
             )}
         </div>
     );
