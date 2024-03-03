@@ -12,6 +12,51 @@ function Dashboard() {
     const openNewSiteModal = () => setIsNewSiteModalOpen(true);
     const closeNewSiteModal = () => setIsNewSiteModalOpen(false);
 
+    const [isEditSiteModalOpen, setIsEditSiteModalOpen] = useState(false);
+    const [currentSite, setCurrentSite] = useState(null);
+
+
+    const openEditSiteModal = (siteId) => {
+        // Appel API pour récupérer les données du site
+        fetch(`http://localhost:3001/api/editSite/${siteId}`)
+            .then(response => response.json())
+            .then(data => {
+                setCurrentSite(data); // Stockez les données du site dans l'état
+                setIsEditSiteModalOpen(true); // Ouvrez le modal de modification
+            })
+            .catch(error => console.error('Error fetching site details:', error));
+    };
+
+    const handleEditSite = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const updatedSiteData = Object.fromEntries(formData.entries());
+
+        // Ici, vous devez avoir l'ID du site que vous modifiez
+        const siteId = currentSite.id;
+
+        fetch(`http://localhost:3001/api/editSite/${siteId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedSiteData),
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Traitez la réponse, fermez le modal et mettez à jour l'état des sites si nécessaire
+                } else {
+                    throw new Error('Échec de la modification du site');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
+    const closeEditSiteModal = () => {
+        setCurrentSite(null);
+        setIsEditSiteModalOpen(false);
+    };
+
     useEffect(() => {
         fetch('http://localhost:3001/api/positions')
             .then(response => response.json())
@@ -88,10 +133,6 @@ function Dashboard() {
         }
     };
 
-    const handleEditSite = (siteId) => {
-        // Logique pour modifier un site (afficher un formulaire de modification, par exemple)
-    };
-
     const handleDeleteSite = (siteId) => {
         if (window.confirm('Êtes-vous sûr de vouloir supprimer ce site ?')) {
             fetch(`http://localhost:3001/api/deleteSite/${siteId}`, {
@@ -153,7 +194,7 @@ function Dashboard() {
                                     </td>
                                     <td>
                                         <button className="button-edit"
-                                                onClick={() => handleEditSite(position.id)}>Modifier
+                                                onClick={() => openEditSiteModal(position.id)}>Modifier
                                         </button>
                                         <button className="button-delete"
                                                 onClick={() => handleDeleteSite(position.id)}>Supprimer
@@ -217,6 +258,29 @@ function Dashboard() {
                             <button type="submit">Ajouter le Site</button>
                             <button type="button" className='cancel-btn' onClick={closeNewSiteModal}>Annuler</button>
                             {message && <div className="message">{message}</div>}
+                        </form>
+                    </div>
+                </div>
+            )}
+            {isEditSiteModalOpen && currentSite && (
+                <div className="modal-backdrop">
+                    <div className="modal-content">
+                        <h2>Modifier un lieu</h2>
+                        <form onSubmit={handleEditSite}>
+                        <h2>Ajouter un lieu</h2> <br/>
+                            {/* ...champs du formulaire... */}
+                            <input type="text" name="nom_du_site" placeholder="Nom du Site *" value={currentSite.nom_du_site || ''} required/>
+                            <input type="text" name="nom_du_type" placeholder="Nom du Type" value={currentSite.nom_du_type || ''} />
+                            <input type="text" name="code_postal" placeholder="Code Postal" value={currentSite.code_postal || ''} />
+                            <input type="text" name="commune" placeholder="Commune" value={currentSite.commune || ''} />
+                            <input type="text" name="voie" placeholder="Voie" value={currentSite.voie || ''} />
+                            <input type="text" name="adresse_complete" placeholder="Adresse Complète" value={currentSite.adresse_complete || ''} />
+                            <input type="text" name="latitude" placeholder="Latitude *" value={currentSite.latitude || ''} required />
+                            <input type="text" name="longitude" placeholder="Longitude *" value={currentSite.longitude || ''} required />
+                            <input type="url" name="site_internet" placeholder="Site Internet" value={currentSite.site_internet || ''} />
+                            <textarea name="description" placeholder="Description" value={currentSite.description || ''}></textarea>
+                            <button type="submit">Modifier le Site</button>
+                            <button type="button" className='cancel-btn' onClick={closeEditSiteModal}>Annuler</button>
                         </form>
                     </div>
                 </div>

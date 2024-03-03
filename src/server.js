@@ -288,6 +288,34 @@ app.delete('/api/deleteSite/:id', (req, res) => {
   });
 });
 
+// Route pour récupérer les détails d'un site
+app.get('/api/editSite/:siteId', (req, res) => {
+  const { siteId } = req.params;
+  const query = 'SELECT * FROM site WHERE id = ?;';
+  connection.query(query, [siteId], (err, results) => {
+    if (err) {
+      console.error('Erreur lors de la récupération des détails du site', err);
+      res.status(500).send('Erreur lors de la récupération des détails du site');
+    } else {
+      res.status(200).json(results[0]); // Assurez-vous que le site existe
+    }
+  });
+});
+
+// Route pour modifier les détails d'un site
+app.post('/api/editSite/:siteId', (req, res) => {
+  const { siteId } = req.params;
+  const { nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, latitude, longitude, site_internet, description } = req.body;
+  const query = 'UPDATE site SET nom_du_site = ?, nom_du_type = ?, code_postal = ?, commune = ?, voie = ?, adresse_complete = ?, latitude = ?, longitude = ?, site_internet = ?, description = ? WHERE id = ?;';
+  connection.query(query, [nom_du_site, nom_du_type, code_postal, commune, voie, adresse_complete, latitude, longitude, site_internet, description, siteId], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la modification du site', err);
+      res.status(500).send('Erreur lors de la modification du site');
+    } else {
+      res.status(200).send('Site modifié avec succès');
+    }
+  });
+});
 
 
 app.listen(PORT, () => {
