@@ -4,7 +4,7 @@ import './Dashboard.css';
 function Dashboard() {
     const [positions, setPositions] = useState([]);
     const [users, setUsers] = useState([]);
-    const [display, setDisplay] = useState('users'); // Nouvel état pour suivre l'affichage
+    const [display, setDisplay] = useState('positions'); // Nouvel état pour suivre l'affichage
     const [message, setMessage] = useState('');
 
     const [isNewSiteModalOpen, setIsNewSiteModalOpen] = useState(false);
@@ -31,25 +31,31 @@ function Dashboard() {
         event.preventDefault();
         const formData = new FormData(event.target);
         const updatedSiteData = Object.fromEntries(formData.entries());
-
-        // Ici, vous devez avoir l'ID du site que vous modifiez
         const siteId = currentSite.id;
-
+    
         fetch(`http://localhost:3001/api/editSite/${siteId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedSiteData),
         })
-            .then(response => {
-                if (response.ok) {
-                    // Traitez la réponse, fermez le modal et mettez à jour l'état des sites si nécessaire
-                } else {
-                    throw new Error('Échec de la modification du site');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        .then(response => {
+            if (response.ok) {
+                setMessage('Site modifié avec succès');
+
+                setTimeout(() => {
+                    setMessage('')
+                    window.location.reload();
+                }, 3000);
+                // Optionnellement, rafraîchissez la liste des sites
+                //
+            } else {
+                throw new Error('Échec de la modification du site');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            setMessage('Échec de la modification du site');
+        });
     };
 
     const closeEditSiteModal = () => {
@@ -71,6 +77,14 @@ function Dashboard() {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setCurrentSite(prevSite => ({
+            ...prevSite,
+            [name]: value
+        }));
+    };
+
     const handleAddSite = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -85,6 +99,8 @@ function Dashboard() {
                 if (response.ok) {
                     setMessage('Site ajouté avec succès');
                     event.target.reset(); // Réinitialise le formulaire
+                    
+                    window.location.reload();
                     setTimeout(() => setMessage(''), 5000); // Efface le message après 5 secondes
                 } else {
                     throw new Error('Échec de l\'ajout du site');
@@ -170,15 +186,66 @@ function Dashboard() {
     const indexOfFirstSite = indexOfLastSite - sitesPerPage;
     const currentSites = positions.slice(indexOfFirstSite, indexOfLastSite);
 
-    // Rendre les contrôles de pagination
-    const renderPageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1).map(number => {
-        return (
+    const prevDisabled = currentPage === 1;
+    const nextDisabled = currentPage === pageCount;
+
+    const generatePageNumbers = () => {
+        const pageNumbers = [];
+        const pagesToShow = 3; // Nombre de pages à montrer avant et après la page actuelle
+        const startPage = Math.max(currentPage - pagesToShow, 1);
+        const endPage = Math.min(currentPage + pagesToShow, pageCount);
+    
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(i);
+        }
+    
+        return pageNumbers;
+    };
+
+    const renderPaginationControls = (
+        <div className="pagination-controls">
+            <button onClick={() => goToPage(1)} disabled={prevDisabled}>
+                {"<<"}
+            </button>
+            <button onClick={() => goToPage(currentPage - 1)} disabled={prevDisabled}>
+                {"<"}
+            </button>
+            {generatePageNumbers().map(number => (
             <button key={number} onClick={() => goToPage(number)} disabled={currentPage === number}>
                 {number}
             </button>
-        );
-    });
+        ))}
+            <button onClick={() => goToPage(currentPage + 1)} disabled={nextDisabled}>
+                {">"}
+            </button>
+            <button onClick={() => goToPage(pageCount)} disabled={nextDisabled}>
+                {">>"}
+            </button>
+        </div>
+    );
 
+    const ExpandableText = ({ text, maxLength = 100 }) => {
+        // Gestion des cas où text est null ou undefined
+        const displayText = text || ''; // Si text est null ou undefined, utilisez une chaîne vide
+        const [isExpanded, setIsExpanded] = useState(false);
+      
+        if (displayText.length <= maxLength) {
+          return <p>{displayText}</p>;
+        }
+      
+        return (
+          <p>
+            {isExpanded ? displayText : `${displayText.substring(0, maxLength)}... `}
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              style={{ color: 'blue', textDecoration: 'underline', border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}
+            >
+              {isExpanded ? 'Voir moins' : 'Voir plus'}
+            </button>
+          </p>
+        );
+      };
+      
 
     return (
         <div name = "dashboard">
@@ -192,7 +259,7 @@ function Dashboard() {
                     <>
                         <h2>Liste des Sites</h2> 
                         
-                        <button onClick={openNewSiteModal}>+ Nouveau Lieu</button> <span className='totalsites'>(total : {positions.length} sites)</span>
+                        <button className="newsite-btn" onClick={openNewSiteModal}>+ Nouveau Lieu</button> <span className='totalsites'>(total : {positions.length} sites)</span>
                         <table>
                             <thead>
                             <tr>
@@ -212,7 +279,7 @@ function Dashboard() {
                                     <td>{position.nomDuType}</td>
                                     <td>{position.adresseComplete}</td>
                                     <td>{position.position}</td>
-                                    <td>{position.description}</td>
+                                    <td><ExpandableText text={position.description} maxLength={100} /></td>
                                     <td>
                                         
                                         <a href={position.site_internet} target="_blank" rel="noopener noreferrer">
@@ -221,10 +288,10 @@ function Dashboard() {
                                         
                                     </td>
                                     <td>
-                                        <button className="button-edit"
+                                        <button className="button-edit action-btn"
                                                 onClick={() => openEditSiteModal(position.id)}>Modifier
                                         </button>
-                                        <button className="button-delete"
+                                        <button className="button-delete action-btn"
                                                 onClick={() => handleDeleteSite(position.id)}>Supprimer
                                         </button>
                                     </td>
@@ -233,7 +300,7 @@ function Dashboard() {
                             </tbody>
                         </table>
                         <div className="pagination">
-                            {renderPageNumbers}
+                            {renderPaginationControls}
                         </div>
                     </>
                 )}
@@ -256,9 +323,9 @@ function Dashboard() {
                                     <td>{user.pseudo}</td>
                                     <td>{user.accessRight}</td>
                                     <td>
-                                        <button className="button-edit" onClick={() => handleEditUser(user.id)}>Modifier
-                                        </button>
-                                        <button className="button-delete" onClick={() => handleDeleteUser(user.id)}>Supprimer
+                                        <button className="button-edit action-btn" onClick={() => handleEditUser(user.id)}>Modifier
+                                        </button> <br/>
+                                        <button className="button-delete action-btn" onClick={() => handleDeleteUser(user.id)}>Supprimer
                                         </button>
                                     </td>
 
@@ -298,18 +365,21 @@ function Dashboard() {
                     <div className="modal-content">
                         <h2>Modifier un lieu</h2>
                         <form onSubmit={handleEditSite}>
-                        <h2>Ajouter un lieu</h2> <br/>
+                            <h2>Ajouter un lieu</h2> <br/>
                             {/* ...champs du formulaire... */}
-                            <input type="text" name="nom_du_site" placeholder="Nom du Site *" value={currentSite.nom_du_site || ''} required/>
-                            <input type="text" name="nom_du_type" placeholder="Nom du Type" value={currentSite.nom_du_type || ''} />
-                            <input type="text" name="code_postal" placeholder="Code Postal" value={currentSite.code_postal || ''} />
-                            <input type="text" name="commune" placeholder="Commune" value={currentSite.commune || ''} />
-                            <input type="text" name="voie" placeholder="Voie" value={currentSite.voie || ''} />
-                            <input type="text" name="adresse_complete" placeholder="Adresse Complète" value={currentSite.adresse_complete || ''} />
-                            <input type="text" name="latitude" placeholder="Latitude *" value={currentSite.latitude || ''} required />
-                            <input type="text" name="longitude" placeholder="Longitude *" value={currentSite.longitude || ''} required />
-                            <input type="url" name="site_internet" placeholder="Site Internet" value={currentSite.site_internet || ''} />
-                            <textarea name="description" placeholder="Description" value={currentSite.description || ''}></textarea>
+                            <input type="text" name="nom_du_site" placeholder="Nom du Site *" value={currentSite.nom_du_site || ''} required onChange={handleInputChange}/>
+                            <input type="text" name="nom_du_type" placeholder="Nom du Type" value={currentSite.nom_du_type || ''} onChange={handleInputChange}/>
+                            <input type="text" name="code_postal" placeholder="Code Postal" value={currentSite.code_postal || ''} onChange={handleInputChange}/>
+                            <input type="text" name="commune" placeholder="Commune" value={currentSite.commune || ''} onChange={handleInputChange}/>
+                            <input type="text" name="voie" placeholder="Voie" value={currentSite.voie || ''} onChange={handleInputChange}/>
+                            <input type="text" name="adresse_complete" placeholder="Adresse Complète" value={currentSite.adresse_complete || ''} onChange={handleInputChange}/>
+                            <input type="text" name="latitude" placeholder="Latitude *" value={currentSite.latitude || ''} required onChange={handleInputChange}/>
+                            <input type="text" name="longitude" placeholder="Longitude *" value={currentSite.longitude || ''} required onChange={handleInputChange}/>
+                            <input type="url" name="site_internet" placeholder="Site Internet" value={currentSite.site_internet || ''} onChange={handleInputChange}/>
+                            <textarea name="description" placeholder="Description" value={currentSite.description || ''} onChange={handleInputChange}></textarea>
+
+                            <div className="form-message">{message}</div>
+
                             <button type="submit">Modifier le Site</button>
                             <button type="button" className='cancel-btn' onClick={closeEditSiteModal}>Annuler</button>
                         </form>

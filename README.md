@@ -44,3 +44,7 @@ https://www.karudata.com/explore/dataset/les-lieux-remarquables-de-la-guadeloupe
 ### Lancement du projet : `npm start`
 
 Ouvrez la page [http://localhost:3000](http://localhost:3000) pour voir le rendu dans votre navigateur.
+
+Vous pourrez consulter la carte affichant les différents lieux et y laisser des commentaires
+
+Ouvrez la page [http://localhost:3000/dashboard](http://localhost:3000/dashboard) pour consulter la liste des lieux et vous pourrez ajouter, modifier ou supprimer ces derniers.
