@@ -33,7 +33,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/" className="logo">Locasite</Link> {/* Cliquez sur le logo pour revenir à l'accueil */}
+      <Link to="/" className="logo">Locasite</Link> 
       {!hideNavbar && (
         <div>
           {userPseudo ? (
@@ -57,12 +57,12 @@ function Navbar() {
         </div>
       )}
 
-            {/* Modal for Signup */}
+            
             {showSignupModal && (
                 <SignupForm onClose={closeSignupModal} onSwitchToSignIn={handleSwitchToSignIn}/>
             )}
 
-            {/* Modal for Signin */}
+            
             {showSigninModal && (
                 <SignInForm onClose={closeSigninModal} onSwitchToSignUp={handleSwitchToSignUp}/>
             )}

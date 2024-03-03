@@ -243,7 +243,7 @@ const MapComponent = () => {
                     ) : ''}
                     <hr />
                   </div>
-                  {/* Section Commentaire et Avis reste fixe et toujours visible */}
+                  
                   <div className="comment-section">
                     <h4>Commentaires et Avis</h4>
                       <div className="comments">

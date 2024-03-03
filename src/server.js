@@ -38,7 +38,7 @@ app.get('/api/positions', (req, res) => {
   });
 });
 
-/* Route d'inscription */
+
 
 app.post('/api/signup', async (req, res) => {
   const { pseudo, mail, password } = req.body;
@@ -82,7 +82,7 @@ app.post('/api/signup', async (req, res) => {
 });
 
 
-/* Route de connexion */
+
 app.post('/api/signin', (req, res) => {
   const { mail, password } = req.body;
   const query = 'SELECT * FROM users WHERE mail = ?';

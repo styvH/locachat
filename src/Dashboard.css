@@ -4,39 +4,39 @@ table {
   border-spacing: 0;
   margin-bottom: 20px;
   border-radius: 8px;
-  overflow: hidden; /* Permet aux coins arrondis de la première et dernière ligne de s'appliquer */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ajoute une ombre douce pour un effet de profondeur */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Polices modernes */
+  overflow: hidden; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
 th, td {
-  padding: 12px 15px; /* Plus d'espacement */
-  text-align: left; /* Alignement à gauche */
-  border-bottom: 1px solid #ddd; /* Ligne de séparation plus subtile */
+  padding: 12px 15px; 
+  text-align: left; 
+  border-bottom: 1px solid #ddd; 
 }
 
 th {
-  background-color: #f8f8f8; /* Couleur de fond pour l'en-tête */
-  color: #333; /* Couleur de texte pour l'en-tête */
-  font-weight: 600; /* Rend le texte de l'en-tête un peu plus gras */
+  background-color: #f8f8f8; 
+  color: #333; 
+  font-weight: 600; 
 }
 
 tr:nth-child(even) {
-  background-color: #fafafa; /* Zébrure pour améliorer la lisibilité */
+  background-color: #fafafa; 
 }
 
 tr:hover {
-  background-color: #f1f1f1; /* Couleur au survol */
-  cursor: pointer; /* Change le curseur pour indiquer la possibilité de cliquer */
+  background-color: #f1f1f1; 
+  cursor: pointer; 
 }
 
 a {
-  color: #007bff; /* Couleur des liens */
-  text-decoration: none; /* Enlève le soulignement */
+  color: #007bff; 
+  text-decoration: none; 
 }
 
 a:hover {
-  text-decoration: underline; /* Ajoute un soulignement au survol pour indiquer la possibilité de cliquer */
+  text-decoration: underline; 
 }
 
 div[name="dashboard"] {
@@ -46,7 +46,7 @@ div[name="dashboard"] {
 }
 
 div[name="dashboard"] button {
-  background-color: #2C3E50; /* Vert foncé */
+  background-color: #2C3E50; 
   color: white;
   padding: 10px 24px;
   margin-top: 10px;
@@ -62,7 +62,7 @@ div[name="dashboard"] button {
 }
 
 div[name="dashboard"] button:hover {
-  background-color: #333; /* Une teinte de vert plus foncée pour le survol */
+  background-color: #333; 
 }
 
 form {
@@ -82,12 +82,12 @@ textarea {
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box; /* Ajoutez ceci pour inclure le padding dans la largeur */
+  box-sizing: border-box; 
 }
 
 textarea {
   height: 100px;
-  resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+  resize: vertical; 
 }
 
 button[type="submit"] {
@@ -95,7 +95,7 @@ button[type="submit"] {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #2C3E50; /* Vert foncé */
+  background-color: #2C3E50; 
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -103,7 +103,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #BDC3C7; /* Une teinte de vert plus foncée pour le survol */
+  background-color: #BDC3C7; 
 }
 
 label {
@@ -112,27 +112,27 @@ label {
   color: #333;
 }
 
-/* Amélioration de l'accessibilité des focus */
+
 input[type="text"]:focus,
 input[type="url"]:focus,
 textarea:focus {
-  border-color: #BDC3C7; /* Couleur de mise en évidence lors de la mise au point */
-  outline: none; /* Supprime l'outline par défaut pour les éléments focalisés */
+  border-color: #BDC3C7; 
+  outline: none; 
 }
 
-/* Style pour les messages d'erreur ou de succès */
+
 .message {
-  color: #d32f2f; /* Couleur rouge pour les messages d'erreur */
+  color: #d32f2f; 
   font-size: 0.9rem;
   margin-top: 10px;
 }
 
 .success {
-  color: #388e3c; /* Couleur verte pour les messages de succès */
+  color: #388e3c; 
 }
 
 
-/* Style pour le tableau des utilisateurs */
+
 .table-users {
   width: 100%;
   border-collapse: collapse;
@@ -178,7 +178,7 @@ textarea:focus {
 
 .message {
   margin-top: 15px;
-  color: #388e3c; /* Vert pour le succès */
+  color: #388e3c; 
   font-size: 0.9rem;
 }
 
@@ -186,14 +186,14 @@ textarea:focus {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #f44336; /* Rouge pour la suppression */
+  background-color: #f44336; 
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .button-delete:hover {
-  background-color: #d32f2f; /* Une teinte de rouge plus foncée pour le survol */
+  background-color: #d32f2f; 
 }
 
 .sidebar {
@@ -201,19 +201,19 @@ textarea:focus {
   width: 250px;
   flex-shrink: 0;
   display: flex;
-  flex-direction: column; /* Organise les boutons verticalement */
-  justify-content: flex-start; /* Alignement vertical */
-  align-items: flex-start; /* Alignement horizontal */
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: flex-start; 
   padding: 10px;
-  margin-right: 20px; /* Espacement entre la barre latérale et le contenu principal */
-  height: auto; /* Utilisez la hauteur de la fenêtre d'affichage si nécessaire */
+  margin-right: 20px; 
+  height: auto; 
 }
 
 .navbtn {
-  width: 100%; /* Fait en sorte que chaque bouton prenne toute la largeur de la sidebar */
-  margin-bottom: 8px; /* Ajoute un petit espace entre les boutons */
+  width: 100%; 
+  margin-bottom: 8px; 
   margin-left: 0%;
-  text-align: center; /* Centre le texte dans les boutons */
+  text-align: center; 
 }
 
 
@@ -224,18 +224,18 @@ textarea:focus {
 }
 
 .modal-backdrop {
-  position: fixed; /* Position fixe par rapport à la fenêtre du navigateur */
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); /* Floutage du fond */
-  z-index: 1001; /* Assurez-vous que le fond est au-dessus des autres éléments */
+  backdrop-filter: blur(5px); 
+  z-index: 1001; 
   border-radius: 5%;
 }
 
@@ -244,7 +244,7 @@ textarea:focus {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #2C3E50; /* Vert foncé */
+  background-color: #2C3E50; 
   color: red;
   font-size: 16px;
   cursor: pointer;
@@ -257,7 +257,7 @@ textarea:focus {
 }
 
 .form-message {
-    color: #d35400; /* Par exemple pour un message d'erreur */
+    color: #d35400; 
     text-align: center;
 }
 
@@ -266,12 +266,12 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* Ajustez selon votre mise en page */
+  margin-top: 20px; 
 }
 
 .pagination-controls button {
-  background-color: #2C3E50; /* Couleur de fond */
-  color: white; /* Couleur du texte */
+  background-color: #2C3E50; 
+  color: white; 
   border: none;
   padding: 10px 15px;
   margin: 0 5px;
@@ -280,15 +280,15 @@ textarea:focus {
 }
 
 .pagination-controls button:disabled {
-  background-color: #dcdcdc; /* Couleur de fond pour bouton désactivé */
+  background-color: #dcdcdc; 
   cursor: not-allowed;
 }
 
 .pagination-controls button:disabled:hover {
-    background-color: #dcdcdc; /* Assombrir le bouton au survol */
+    background-color: #dcdcdc; 
 }
 .pagination-controls button:not(disabled):hover {
-  background-color: #dcdcdc; /* Assombrir le bouton au survol */
+  background-color: #dcdcdc; 
 }
 
 

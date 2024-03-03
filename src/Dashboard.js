@@ -342,7 +342,7 @@ function Dashboard() {
                         
                         <form onSubmit={handleAddSite}>
                             <h2>Ajouter un lieu</h2> <br/>
-                            {/* ...champs du formulaire... */}
+                            
                             <input type="text" name="nom_du_site" placeholder="Nom du Site *" required/>
                             <input type="text" name="nom_du_type" placeholder="Nom du Type"/>
                             <input type="text" name="code_postal" placeholder="Code Postal"/>
@@ -366,7 +366,7 @@ function Dashboard() {
                         <h2>Modifier un lieu</h2>
                         <form onSubmit={handleEditSite}>
                             <h2>Ajouter un lieu</h2> <br/>
-                            {/* ...champs du formulaire... */}
+                            
                             <input type="text" name="nom_du_site" placeholder="Nom du Site *" value={currentSite.nom_du_site || ''} required onChange={handleInputChange}/>
                             <input type="text" name="nom_du_type" placeholder="Nom du Type" value={currentSite.nom_du_type || ''} onChange={handleInputChange}/>
                             <input type="text" name="code_postal" placeholder="Code Postal" value={currentSite.code_postal || ''} onChange={handleInputChange}/>

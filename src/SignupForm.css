@@ -1,24 +1,24 @@
 .modal-backdrop {
-  position: fixed; /* Position fixe par rapport à la fenêtre du navigateur */
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); /* Floutage du fond */
-  z-index: 1000; /* Assurez-vous que le fond est au-dessus des autres éléments */
+  backdrop-filter: blur(5px); 
+  z-index: 1000; 
 }
 
 .signin-form-container {
-  position: relative; /* Pour positionner le bouton de fermeture par rapport à ce conteneur */
+  position: relative; 
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1001; /* Assurez-vous que le formulaire est au-dessus du fond */
-  /* Le reste de votre style pour .signin-form-container */
+  z-index: 1001; 
+  
 }
   .signup-form {
     width: 100%;
@@ -33,7 +33,7 @@
   .signup-form h2 {
     text-align: center;
     color: #333;
-    margin-bottom: 30px; /* Espace supplémentaire sous le titre */
+    margin-bottom: 30px; 
   }
   
   .signup-form .form-control {
@@ -71,13 +71,13 @@
   
   .signup-form .form-footer {
     text-align: center;
-    margin-top: 30px; /* Espace supplémentaire au-dessus des liens */
+    margin-top: 30px; 
   }
   
   .signup-form .form-footer a {
     color: #007bff;
     text-decoration: none;
-    margin: 10px 15px; /* Espace autour des liens */
+    margin: 10px 15px; 
   }
   
   .signup-form .form-footer a:hover {
@@ -85,35 +85,35 @@
   }
   
   .close-btn {
-    position: absolute; /* Positionnez le bouton par rapport au conteneur parent */
-    top: 10px; /* Ajustez comme nécessaire */
-    right: 10px; /* Ajustez comme nécessaire */
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
     border: none;
     background: none;
-    font-size: 20px; /* Ajustez la taille comme nécessaire */
+    font-size: 20px; 
     cursor: pointer;
     color:black;
   }
   
-  /* Ajoutez des styles supplémentaires pour l'interaction au survol si nécessaire */
+  
   .close-btn:hover {
-    color: #f00; /* Par exemple, changez la couleur lors du survol */
+    color: #f00; 
   }
   
   .link-like-button {
     background: none;
-    color: blue; /* Choisissez la couleur correspondant à vos liens */
+    color: blue; 
     border: none;
     padding: 0;
-    font: inherit; /* Pour s'assurer que la police correspond à votre texte environnant */
+    font: inherit; 
     cursor: pointer;
     outline: inherit;
-    text-decoration: underline; /* Pour imiter l'aspect d'un lien */
+    text-decoration: underline; 
   }
   
   .link-like-button:hover,
   .link-like-button:focus {
-    color: darkblue; /* Couleur au survol et au focus, ajustez selon vos préférences */
-    text-decoration: none; /* Optionnel: enlever le soulignement au survol/focus pour différencier du comportement de lien */
+    color: darkblue; 
+    text-decoration: none; 
   }
   

@@ -105,7 +105,7 @@ function SignupForm({onClose, onSwitchToSignIn}) {
       <div className="signin-form-container" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>X</button>
         <form className="signup-form" onSubmit={handleSubmit}>
-          <h2>Inscription</h2> {/* Titre avec espace */}
+          <h2>Inscription</h2> 
             {successMessage && (
               <div className="alert alert-success" role="alert">
                 {successMessage}

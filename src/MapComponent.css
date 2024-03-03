@@ -1,5 +1,5 @@
 
-/* Style général */
+
 body {
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ body {
     overflow: hidden;
   }
   
-  /* Style pour les popups */
+  
   .leaflet-popup-content-wrapper {
     border-radius: 10px;  
   }
@@ -33,18 +33,18 @@ body {
   
 
   .description-content {
-    overflow-y: auto; /* Active le défilement vertical si nécessaire */
-    margin-bottom: 10px; /* Espacement entre la description et les commentaires */
-    max-height: 100px; /* Ajustez selon vos besoins pour la partie défilable */
+    overflow-y: auto; 
+    margin-bottom: 10px; 
+    max-height: 100px; 
   }
   
-  /* Style pour les marqueurs */
+  
   .leaflet-marker-icon {
     width: 30px;
     height: 30px;
   }
   
-  /* Style pour les boutons */
+  
   .btn {
     padding: 10px 20px;
     border: none;
@@ -60,7 +60,7 @@ body {
     background-color: #0056b3;
   }
   
-  /* Style pour l'interface agrandie */
+  
   .enlarged-interface {
     position: absolute;
     top: 20px;
@@ -85,7 +85,7 @@ body {
     color: #333;
   }
   
-  /* Style pour la barre de recherche */
+  
   .search-bar {
     position: absolute;
     top: 20px;
@@ -116,11 +116,11 @@ body {
     background-color: #218838;
   }
   
-  /* Media query pour la version mobile */
+  
   @media screen and (max-width: 600px) {
     .map-container {
-      height: 60vh; /* Hauteur de la carte pour les petits écrans */
-      width: 95vw; /* Largeur de la carte pour les petits écrans */
+      height: 60vh; 
+      width: 95vw; 
     }
   }
   
